@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Examples</title>
+    <!-- 1. Resource Link -->
+    <!-- <link rel="stylesheet" th:href="@{/css/main.css}"> -->
+</head>
+<body>
+
+    <!-- 2. Simple Text & Variables -->
+    <h1 th:text="${title}">Default Title</h1>
+    <p th:text="'Welcome, ' + ${user.name} + '!'">Hello, Guest!</p>
+
+    <!-- 3. Conditionals (If/Unless) -->
+    <div th:if="${user.role == 'ADMIN'}">
+        <p><strong>Admin Panel:</strong> You have full access.</p>
+    </div>
+    <p th:unless="${user.active}">Please verify your account.</p>
+
+    <!-- 4. Iteration (Loops) -->
+    <h3>Product List</h3>
+    <ul>
+        <li th:each="item : ${products}">
+            <span th:text="${item.name}">Item Name</span>: 
+            <span th:text="${item.price}">$0.00</span>
+        </li>
+    </ul>
+
+    <!-- 5. Link with URL Parameters -->
+    <a th:href="@{/profile/edit(id=${user.id})}">Edit Profile Settings</a>
+
+    <hr>
+
+    <!-- 6. Form Binding -->
+    <h3>Update Profile</h3>
+    <form th:action="@{/update}" th:object="${user}" method="post">
+        <!-- *{...} selects properties from the th:object -->
+        <input type="text" th:field="*{name}" placeholder="Name" />
+        <input type="email" th:field="*{email}" placeholder="Email" />
+        <button type="submit">Save Changes</button>
+    </form>
+
+</body>
+</html>
